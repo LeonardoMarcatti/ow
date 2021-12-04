@@ -1,0 +1,55 @@
+#divform{
+    background-color: rgba(122, 122, 122, 0.5);
+    height: auto;
+    padding: 20px;
+}
+
+#user_info{
+    margin-top: 10px;
+}
+
+#user_info > p{
+    margin: 0px;
+}
+
+#footer{
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.page{
+    padding: 10px;
+    border: 1px solid gray;
+    margin: 5px;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: center;
+}
+
+a{
+    border-radius: 50%;
+}
+
+.page > a{
+    text-decoration: none;
+}
+
+.page:hover, .page:hover > a{
+    background-color: gray;
+    color: white;
+    transition: .25s;
+}
+
+.page:hover{
+    transform: scale(1.5);
+}
+
+form > p{
+    margin: 0px;
+}

@@ -2,7 +2,7 @@ create database ow;
 use ow;
 
 create table users(
-	id int unsigned auto_increment primary key,
+	id int unsigned not null auto_increment primary key,
     name varchar(50) not null,
     birthday date,
 	created_at datetime,
