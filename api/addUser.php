@@ -24,11 +24,13 @@
 
         $name = \filter_input(\INPUT_POST, 'name', \FILTER_SANITIZE_STRING);
         $birthday = \filter_input(\INPUT_POST, 'birthday', \FILTER_SANITIZE_STRING);
+        $exploded = \explode('/', $birthday);
+        $formated_birthday = $exploded[2] . '-' . $exploded[1] . '-' . $exploded[0];
         $created_at = date('Y-m-d H:i:s');
         $emailAddress = \filter_input(\INPUT_POST, 'email', \FILTER_SANITIZE_EMAIL);
 
         $user->setName($name);
-        $user->setBirthday($birthday);
+        $user->setBirthday($formated_birthday);
         $user->setCreated_at($created_at);
 
         $userDAO->addUser($user);

@@ -74,7 +74,7 @@
 
         public static function createFileJSON($file_name, $content)
         {
-            $file = \fopen('downloads/' . $file_name, 'w+');
+            $file = \fopen('../downloads/' . $file_name, 'w+');
             \fputs($file, $content);
             \fclose($file);
         }
@@ -89,6 +89,7 @@
             if ($user->rowCount() > 0) {
                 $result = $user->fetch(\PDO::FETCH_ASSOC);
                 self::createFileJSON('user.json', \json_encode($result));
+                return true;
             } else{
                 http_response_code(404);
                 echo 'Not found';

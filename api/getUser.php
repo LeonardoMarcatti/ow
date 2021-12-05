@@ -22,10 +22,16 @@
         $dao = new UserDAO($conection);
 
         $user->setID($id);
-        $dao->getUser($user);
-        $file = 'user.json';
-        header("Content-Disposition: attachment; filename=". $file);
-        \readfile('downloads/user.json');
+        $val = $dao->getUser($user);
+        if ($val) {
+            $file = 'user.json';
+            header("Content-Disposition: attachment; filename=". $file);
+            \readfile('../downloads/user.json');
+        } else {
+            if (\file_exists('../downloads/user.json')) {
+                \unlink('../downloads/user.json');
+            };
+        };
     } else {
         \http_response_code(500);
         exit;

@@ -19,5 +19,5 @@
 
     $file = 'all.json';
     header("Content-Disposition: attachment; filename=". $file);
-    \readfile('downloads/all.json');
+    \readfile('../downloads/' . $file);
 ?>

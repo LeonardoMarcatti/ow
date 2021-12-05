@@ -62,7 +62,6 @@
             return $this->id_user;
         }
     };
-
     class MovimentDAO implements DAOmov
     {
         private object $pdo;
@@ -90,6 +89,57 @@
             $delete->bindValue(':id', $m->getID());
             $delete->execute();
         }
+
+        public function getAllMov(int $id)
+        {
+            $sql = 'select * from moviment where id_user = :id';
+            $select = $this->pdo->prepare($sql);
+            $select->bindValue(':id', $id);
+            $select->execute();
+            if ($select->rowCount() > 0 ) {
+                $result = $select->fetchAll(\PDO::FETCH_ASSOC);
+                return $result;
+            };
+            
+            \http_response_code(404);
+            echo 'not found';
+            exit;
+        }
+
+        public function getLast30(int $id)
+        {
+            $sql = 'select * from moviment where id_user = :id and mov_created_at < (now() - interval 30 day)';
+            $select = $this->pdo->prepare($sql);
+            $select->bindValue(':id', $id);
+            $select->execute();
+            if ($select->rowCount() > 0 ) {
+                $result = $select->fetchAll(\PDO::FETCH_ASSOC);
+                return $result;
+            };
+            
+            \http_response_code(404);
+            echo 'not found';
+            exit;
+        }
+
+        public function getPeriod(string $from, string $to, int $id)
+        {
+            $sql = 'select * from moviment where id_user = :id and mov_created_at > :f and mov_created_at < :t';
+            $select = $this->pdo->prepare($sql);
+            $select->bindValue(':id', $id);
+            $select->bindValue(':f', $from);
+            $select->bindValue(':t', $to);
+            $select->execute();
+            if ($select->rowCount() > 0 ) {
+                $result = $select->fetchAll(\PDO::FETCH_ASSOC);
+                return $result;
+            };
+            
+            \http_response_code(404);
+            echo 'not found';
+            exit;
+        }
+
     };    
     
 ?>
