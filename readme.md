@@ -20,11 +20,9 @@ B - SOBRE O POSTMAN
         3.1 - Adicionar no campo da URL o endpoint desejado e para cada um existe um body diferente que deve ser adicionado;
             3.1.1 - Clicar em body e selecionar form-data e para cada endpoint teremos que adicionar key/value distinto:
                 a - Para os itens abaixo é necessário clicar na seta bem ao lado do botão SEND e selecionar Send and Download para baixar os respectivos arquivos;
-                3.1.1.1 - Para getUser.php: id/numero_do_id;
-                3.1.1.2 - Para getAll.php: selcione none dentro de body;
-                3.1.1.3 - Para csv30.php: id/numero_do_id;
-                3.1.1.4 - Para csvPeriod.php: id/numero_do_id, from/uma_data e to/outra_data;
-
-                3.1.1.3 - Para addUser.php: name/nome_do_usuário, email/endereco_de_email, birthday/data_nascimento;
-
-
+                    3.1.1.1 - Para getUser.php: id/numero_do_id;
+                    3.1.1.2 - Para getAll.php: selcione none dentro de body;
+                    3.1.1.3 - Para csv30.php: id/numero_do_id;
+                    3.1.1.4 - Para csvPeriod.php: id/numero_do_id, from/uma_data e to/outra_data; Ex: xx/xx/xxxx
+                b - Para os itens abaixo é necessário somente clicar em SEND pois nenhum arquivo será retornado;
+                    3.1.1.3 - Para addUser.php: nome/nome_do_usuário, email/endereco_de_email e nascimento/data_nascimento;

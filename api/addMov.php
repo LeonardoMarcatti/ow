@@ -11,12 +11,12 @@
     use classes\Moviment;
     use classes\MovimentDAO;
 
-    if (!empty($_POST['type']) && !empty($_POST['value']) && !empty($_POST['iduser'])) {
+    if (!empty($_POST['type']) && !empty($_POST['valor']) && !empty($_POST['id'])) {
         $type = \strtoupper(\filter_input(\INPUT_POST, 'type', \FILTER_SANITIZE_STRING));
-        $value = str_replace(',', '.', $_POST['value']);
+        $value = str_replace(',', '.', $_POST['valor']);
         $value = \filter_var($value, \FILTER_SANITIZE_NUMBER_FLOAT, \FILTER_FLAG_ALLOW_FRACTION);
         $created_at = date('Y-m-d H:i:s');
-        $id = \filter_input(\INPUT_POST, 'iduser', \FILTER_SANITIZE_NUMBER_INT);
+        $id = \filter_input(\INPUT_POST, 'id', \FILTER_SANITIZE_NUMBER_INT);
 
         $db = new Connection();
         $conection = $db->getConnection();

@@ -90,20 +90,32 @@
             $delete->execute();
         }
 
-        public function getAllMov(int $id)
+        public function getAllMov(Moviment $m)
         {
-            $sql = 'select * from moviment where id_user = :id';
+            $sql = 'select u.id as ID_usuario, u.name as Nome, e.email, m.mov_type as operacao, m.mov_value as Valor, m.mov_created_at as Data, b.current_balance as Saldo from users u join email e on u.id = e.id_user join moviment m on u.id = m.id_user join balance b on u.id = b.id_user where u.id = :id';
             $select = $this->pdo->prepare($sql);
-            $select->bindValue(':id', $id);
+            $select->bindValue(':id', $m->getID_User());
             $select->execute();
             if ($select->rowCount() > 0 ) {
                 $result = $select->fetchAll(\PDO::FETCH_ASSOC);
                 return $result;
+            } else{
+                \http_response_code(404);
+                echo 'not found';
+                exit;
             };
-            
-            \http_response_code(404);
-            echo 'not found';
-            exit;
+        }
+
+        public function checkMov(Moviment $m)
+        {
+            $sql = 'select id from moviment where id_user = :id limit 1';
+            $select = $this->pdo->prepare($sql);
+            $select->bindValue(':id', $m->getID_User());
+            $select->execute();
+            if ($select->rowCount() > 0) {
+                return true;
+            };
+            return false;            
         }
 
         public function getLast30(int $id)

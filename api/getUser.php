@@ -10,7 +10,7 @@
 
     use classes\Connection;
     use classes\User;
-    use classes\UserDAO;    
+    use classes\UserDAO;
 
     if (!empty($_POST['id'])) {
         $id = \filter_input(\INPUT_POST, 'id', \FILTER_SANITIZE_NUMBER_INT);

@@ -70,11 +70,17 @@
                     <div>
                         <button type="submit" class="btn btn-success">Enviar</button>
                     </div>
-                    <p>Nome: <?=$userInfo['name']?></p>
-                    <p>Email: <?=$userInfo['email']?></p>
-                    <p>Nascimento: <?=$userInfo['birthday']?></p>
-                    <p>Cadastrado em: <?=$userInfo['created_at']?></p>
-                    <p>Atualizado em: <?=$userInfo['updated_at']?></p>
+                    <?php
+                        if (isset($userInfo)) { ?>
+                            <p>Nome: <?=$userInfo['name']?></p>
+                            <p>Email: <?=$userInfo['email']?></p>
+                            <p>Nascimento: <?=$userInfo['birthday']?></p>
+                            <p>Cadastrado em: <?=$userInfo['created_at']?></p>
+                            <p>Atualizado em: <?=$userInfo['updated_at']?></p>
+                     <?php   };
+                    ?>
+
+                    
                 </form>
                 <div id="footer">
                     <?php
@@ -88,7 +94,7 @@
             </div>
             <div class="col-8 float-end" id="user_movs">
                 <?php 
-                    if (\count($block) > 0) { ?>
+                    if ( isset($block) && \count($block) > 0) { ?>
                         <table class="table table-hover table-bordered">
                             <thead class="table-dark text-center">
                                 <tr>

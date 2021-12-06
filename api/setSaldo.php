@@ -1,0 +1,48 @@
+<?php
+    namespace ow;
+
+    header("Access-Control-Allow-Origin: *");
+    header('Content-Description: File Transfer');
+    header('Content-Type: application/octet-stream');
+
+    require_once '../classes/Connection.php';
+    require_once '../classes/Balance.php';
+
+    use classes\Connection;
+    use classes\Balance;
+    use classes\BalanceDAO;
+
+    
+    if (!empty($_POST['id']) && !empty($_POST['valor'])) {
+        $id = \filter_input(\INPUT_POST, 'id', \FILTER_SANITIZE_NUMBER_INT);
+        $value = str_replace(',', '.', $_POST['valor']);
+        $value = \filter_var($value, \FILTER_SANITIZE_NUMBER_FLOAT, \FILTER_FLAG_ALLOW_FRACTION);
+
+        $db = new Connection;
+        $conn = $db->getConnection();
+        $balance = new Balance;
+        $balanceDAO = new BalanceDAO($conn);
+
+        $balance->setID_User($id);
+        $start_balance_value = $balanceDAO->getCurrentBalance($balance);
+        $current_balance_value = $balanceDAO->getCurrentBalance($balance);
+
+        if ($start_balance_value == $current_balance_value) {
+            $balance->setStart($value);
+            $balance->setCurrent($value);
+            $balanceDAO->setCurrentBalance($balance);
+            $balanceDAO->setStartBalance($balance);
+        } else {
+            $diff = $value - $start_balance_value;
+            $balance->setCurrent($current_balance_value + $diff);
+            $balanceDAO->setCurrentBalance($balance);
+        };
+
+    } else {
+        \http_response_code(500);
+        echo 'ID e valor não enviados.';
+        exit;
+    };
+    
+
+?>

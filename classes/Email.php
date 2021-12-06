@@ -5,6 +5,7 @@
     {
         public function addEmail(Email $e);
         public function deleteEmail(Email $e);
+        public function checkEmail(Email $e);
     }
 
     class Email
@@ -66,6 +67,18 @@
             $delete = $this->pdo->prepare($sql);
             $delete->bindValue(':id', $e->getID_User());
             $delete->execute();
+        }
+
+        public function checkEmail(Email $e)
+        {
+            $sql = 'select id from email where email = :e';
+            $check = $this->pdo->prepare($sql);
+            $check->bindValue(':e', $e->getEmail());
+            $check->execute();
+            if ($check->rowCount() > 0) {
+               return true;
+            };
+            return false;
         }
     }
 ?>

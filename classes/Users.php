@@ -11,7 +11,7 @@
     class User
     {
         private string $name, $birthday, $created_at, $updated_at;
-        private int $id;
+        private int $id, $age;
 
         public function setName(string $val)
         {
@@ -38,9 +38,19 @@
             $this->id = $val;
         }
 
+        public function setAge(int $val)
+        {
+            $this->age = $val;
+        }
+
         public function getID()
         {
             return $this->id;
+        }
+
+        public function getAge()
+        {
+            return $this->age;
         }
 
         public function getName()
