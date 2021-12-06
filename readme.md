@@ -1,5 +1,6 @@
 A - CONFIGURAÇÕES INICIAIS
     1 - A pasta ow deve ser copiada para a pasta html do apache2;
+        1.1 - Adicionar permissões recursivas de leitura e escrita no servidor para a pasta downloads;
     2 - Quando for utilizada a API os caminhos para os endpoints seguião um padrão até essa pasta seguido de uma barra '/' e o nome do endpoint.php; Ex. ip_do_server/ow/endpoint.php
     3 - No mysql, rodar o script que se encontra na pasta ow que criará o banco de dados bem como as tabelas e as populariza-rá com alguns dados de exemplo;
     4 - Para usar a API vamos utilizar o Postman;
