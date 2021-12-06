@@ -1,6 +1,6 @@
 A - CONFIGURAÇÕES INICIAIS
     1 - A pasta ow deve ser copiada para a pasta html do apache2;
-    2 - Quando for utilizada a API os caminhos para os endpoints seguião um padrão até essa pasta seguido de uma barra '/' e o nome do endpoint.php;
+    2 - Quando for utilizada a API os caminhos para os endpoints seguião um padrão até essa pasta seguido de uma barra '/' e o nome do endpoint.php; Ex. ip_do_server/ow/endpoint.php
     3 - No mysql, rodar o script que se encontra na pasta ow que criará o banco de dados bem como as tabelas e as populariza-rá com alguns dados de exemplo;
     4 - Para usar a API vamos utilizar o Postman;
 
@@ -23,6 +23,16 @@ B - SOBRE O POSTMAN
                     3.1.1.1 - Para getUser.php: id/numero_do_id;
                     3.1.1.2 - Para getAll.php: selcione none dentro de body;
                     3.1.1.3 - Para csv30.php: id/numero_do_id;
-                    3.1.1.4 - Para csvPeriod.php: id/numero_do_id, from/uma_data e to/outra_data; Ex: xx/xx/xxxx
+                    3.1.1.4 - Para csvPeriod.php: id/numero_do_id, de/uma_data e ate/outra_data; Ex: xx/xx/xxxx
+                    3.1.1.5 - Para csvAll.php: id/numero_do_id;
                 b - Para os itens abaixo é necessário somente clicar em SEND pois nenhum arquivo será retornado;
-                    3.1.1.3 - Para addUser.php: nome/nome_do_usuário, email/endereco_de_email e nascimento/data_nascimento;
+                    3.1.1.6 - Para addUser.php: nome/nome_do_usuário, email/endereco_de_email e nascimento/data_nascimento;
+                    3.1.1.7 - Para addMov.php: tipo/(deb,cred,est), valor/um número e id/numero de id;
+                    3.1.1.8 - Para delMov.php: id/numero_do_id. Este é o id do movimento e não do usuário;
+                    3.1.1.9 - Para delUser.php: id/id_do_usuário;
+                    3.1.1.10 - Para setSaldo.php: id/id_do_usuário e valor/um numero.
+
+C - VISUALIZAR MOVIMENTAÇÃO
+    1 - Aponte a url para ip_do_server/ow/sites;
+    2 - Selecione um usuário na lista a esquerda e clique em Visualizar;
+    3 - São exibidos 5 movimentos por vez a direita e abaixo do botão visualizar aparecerá informações sobre o usuário bem como, se existirem mais de 5 movimentações, alguns outros botões que mostram mais movimentações.

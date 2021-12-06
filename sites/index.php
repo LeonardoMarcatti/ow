@@ -68,7 +68,7 @@
                     </div>
                     <div id="user_info" class="mb-3"></div>
                     <div>
-                        <button type="submit" class="btn btn-success">Enviar</button>
+                        <button type="submit" class="btn btn-success">Visualizar</button>
                     </div>
                     <?php
                         if (isset($userInfo)) { ?>

@@ -13,10 +13,10 @@
     use classes\Connection;
     use classes\MovimentDAO;
 
-    if (!empty($_POST['id']) && !empty($_POST['from']) && !empty($_POST['to'])){
+    if (!empty($_POST['id']) && !empty($_POST['de']) && !empty($_POST['ate'])){
         $id = \filter_input(\INPUT_POST, 'id', \FILTER_SANITIZE_NUMBER_INT);
-        $from = \filter_input(\INPUT_POST, 'from', \FILTER_SANITIZE_STRING);
-        $to = \filter_input(\INPUT_POST, 'to', \FILTER_SANITIZE_STRING);
+        $from = \filter_input(\INPUT_POST, 'de', \FILTER_SANITIZE_STRING);
+        $to = \filter_input(\INPUT_POST, 'ate', \FILTER_SANITIZE_STRING);
         $explodedFrom = \explode('/', $from);
         $explodedTo = \explode('/', $to);
         $formatedFrom = $explodedFrom[2] . '-' . $explodedFrom[1] . '-' . $explodedFrom[0];

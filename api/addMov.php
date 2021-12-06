@@ -11,8 +11,8 @@
     use classes\Moviment;
     use classes\MovimentDAO;
 
-    if (!empty($_POST['type']) && !empty($_POST['valor']) && !empty($_POST['id'])) {
-        $type = \strtoupper(\filter_input(\INPUT_POST, 'type', \FILTER_SANITIZE_STRING));
+    if (!empty($_POST['tipo']) && !empty($_POST['valor']) && !empty($_POST['id'])) {
+        $type = \strtoupper(\filter_input(\INPUT_POST, 'tipo', \FILTER_SANITIZE_STRING));
         $value = str_replace(',', '.', $_POST['valor']);
         $value = \filter_var($value, \FILTER_SANITIZE_NUMBER_FLOAT, \FILTER_FLAG_ALLOW_FRACTION);
         $created_at = date('Y-m-d H:i:s');
