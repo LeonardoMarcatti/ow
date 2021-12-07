@@ -43,7 +43,6 @@
                 $user->setName($name);
                 $user->setBirthday($formated_birthday);
                 $user->setCreated_at($created_at);
-                $user->setAge(date('Y') - $exploded[2]);
                 $userDAO->addUser($user);
 
                 $maxID = $userDAO->getMaxID();

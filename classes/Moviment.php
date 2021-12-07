@@ -120,23 +120,35 @@
 
         public function getLast30(int $id)
         {
-            $sql = 'select * from moviment where id_user = :id and mov_created_at < (now() - interval 30 day)';
+            $sql = 'select u.id as ID_Usuario, u.name as Nome, e.email as Email, m.mov_type as Operacao, m.mov_value as Valor, m.mov_created_at as Data, b.current_balance as Saldo from users u join email e on u.id = e.id_user join moviment m on u.id = m.id_user join balance b on u.id = b.id_user where u.id = :id and mov_created_at <= now() and mov_created_at >= (now() - interval 30 day)';
             $select = $this->pdo->prepare($sql);
             $select->bindValue(':id', $id);
             $select->execute();
             if ($select->rowCount() > 0 ) {
                 $result = $select->fetchAll(\PDO::FETCH_ASSOC);
-                return $result;
+                $movs = [];
+                foreach ($result as $key => $item) {
+                    $mov = [];
+                    foreach ($item as $key => $value) {
+                        if (\str_contains($value, '.')) {
+                            $mov[$key] = \str_replace('.', ',', $value);
+                        } else{
+                            $mov[$key] = $value;
+                        };
+                    };
+                    $movs[] = $mov;
+                };
+                return $movs;
             };
             
             \http_response_code(404);
-            echo 'not found';
+            echo 'Não há movimentações nos últimos 30 dias.';
             exit;
         }
 
         public function getPeriod(string $from, string $to, int $id)
         {
-            $sql = 'select * from moviment where id_user = :id and mov_created_at > :f and mov_created_at < :t';
+            $sql = 'select u.id as ID_Usuario, u.name as Nome, e.email as Email, m.mov_type as Operacao, m.mov_value as Valor, m.mov_created_at as Data, b.current_balance as Saldo from users u join email e on u.id = e.id_user join moviment m on u.id = m.id_user join balance b on u.id = b.id_user where u.id = :id and mov_created_at > :f and mov_created_at < :t';
             $select = $this->pdo->prepare($sql);
             $select->bindValue(':id', $id);
             $select->bindValue(':f', $from);
@@ -148,7 +160,7 @@
             };
             
             \http_response_code(404);
-            echo 'not found';
+            echo 'Não há movimentações neste período.';
             exit;
         }
 

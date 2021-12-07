@@ -23,6 +23,9 @@
 
         if (!empty($data)) {
             $open = \fopen('php://output', 'w');
+            \fputcsv($open, \array_keys($data[0]), ';');
+
+            $open = \fopen('php://output', 'w');
             foreach ($data as $key => $value) {
                 \fputcsv($open, $value, ';');
             };
@@ -36,5 +39,5 @@
         \http_response_code(404);
         echo 'not found';
         exit;
-    }
+    };
 ?>

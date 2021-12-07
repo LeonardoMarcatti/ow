@@ -126,12 +126,11 @@
 
         public function addUser(User $u)
         {
-            $sql = 'insert into users(name, birthday, created_at, age) values(:n, :b, :c, :a)';
+            $sql = 'insert into users(name, birthday, created_at) values(:n, :b, :c)';
             $insert = $this->pdo->prepare($sql);
             $insert->bindValue(':n', $u->getName());
             $insert->bindValue(':b', $u->getBirthday());
             $insert->bindValue(':c', $u->getCreated_at());
-            $insert->bindValue(':a', $u->getAge());
             $insert->execute();
         }
 
