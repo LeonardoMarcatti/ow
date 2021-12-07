@@ -25,7 +25,6 @@
 
         //Verifica se o usuário tem mais de 18 anos
         if ((date('Y') - $exploded[2]) >= 18) {
-            
             $db = new Connection();
             $conection = $db->getConnection();
             $user = new User;
@@ -44,10 +43,11 @@
                 $user->setName($name);
                 $user->setBirthday($formated_birthday);
                 $user->setCreated_at($created_at);
+                $user->setAge(date('Y') - $exploded[2]);
                 $userDAO->addUser($user);
 
                 $maxID = $userDAO->getMaxID();
-                $email->setID_User($maxID->getID());
+                $email->setID_User($maxID);
                 $emailDAO->addEmail($email);
     
                 \http_response_code(200);

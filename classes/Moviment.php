@@ -108,9 +108,9 @@
 
         public function checkMov(Moviment $m)
         {
-            $sql = 'select id from moviment where id_user = :id limit 1';
+            $sql = 'select * from moviment where id = :id limit 1';
             $select = $this->pdo->prepare($sql);
-            $select->bindValue(':id', $m->getID_User());
+            $select->bindValue(':id', $m->getID());
             $select->execute();
             if ($select->rowCount() > 0) {
                 return true;

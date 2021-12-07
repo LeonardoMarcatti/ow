@@ -126,11 +126,12 @@
 
         public function addUser(User $u)
         {
-            $sql = 'insert into users(name, birthday, created_at) values(:n, :b, :c)';
+            $sql = 'insert into users(name, birthday, created_at, age) values(:n, :b, :c, :a)';
             $insert = $this->pdo->prepare($sql);
             $insert->bindValue(':n', $u->getName());
             $insert->bindValue(':b', $u->getBirthday());
             $insert->bindValue(':c', $u->getCreated_at());
+            $insert->bindValue(':a', $u->getAge());
             $insert->execute();
         }
 
@@ -139,11 +140,8 @@
             $sql = 'select max(id) as id from users';
             $select = $this->pdo->prepare($sql);
             $select->execute();
-            $result = $select->fetch(\PDO::FETCH_ASSOC);
-
-            $user = new User();
-            $user->setID($result['id']);
-            return $user;
+            $result = $select->fetch(\PDO::FETCH_ASSOC)['id'];
+            return $result;
         }
 
         public function deleteUser(User $u)
@@ -152,5 +150,17 @@
             $delete = $this->pdo->prepare($sql);
             $delete->bindValue(':id', $u->getID());
             $delete->execute();
+        }
+
+        public function userExits(User $u)
+        {
+            $sql = 'select name from users where id = :id';
+            $select = $this->pdo->prepare($sql);
+            $select->bindValue(':id', $u->getID());
+            $select->execute();
+            if ($select->rowCount() > 0) {
+                return true;
+            };
+            return false;
         }
     };

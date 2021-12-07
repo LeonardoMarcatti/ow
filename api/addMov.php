@@ -27,8 +27,15 @@
         $mov->setValue($value);
         $mov->setCreatedAt($created_at);
         $mov->setID_User($id);
-
         $dao->addMov($mov);
+
+        \http_response_code(200);
+        echo 'Movimentação adicionada com sucesso!';
+        exit;
+    } else{
+        \http_response_code(404);
+        echo 'Por favor insira ID do usuário, valor da movimentação e o tipo de movimentação';
+        exit;
     };
 
 ?>

@@ -7,10 +7,13 @@
 
     require_once '../classes/Connection.php';
     require_once '../classes/Balance.php';
+    require_once '../classes/Users.php';
 
     use classes\Connection;
     use classes\Balance;
     use classes\BalanceDAO;
+    use classes\User;
+    use classes\UserDAO;
 
     
     if (!empty($_POST['id']) && !empty($_POST['valor'])) {
@@ -22,20 +25,34 @@
         $conn = $db->getConnection();
         $balance = new Balance;
         $balanceDAO = new BalanceDAO($conn);
+        $user = new User;
+        $userDAO = new UserDAO($conn);
+        $user->setID($id);
 
-        $balance->setID_User($id);
-        $start_balance_value = $balanceDAO->getCurrentBalance($balance);
-        $current_balance_value = $balanceDAO->getCurrentBalance($balance);
-
-        if ($start_balance_value == $current_balance_value) {
+        if ($userDAO->userExits($user)) {
+            $balance->setID_User($id);
             $balance->setStart($value);
-            $balance->setCurrent($value);
-            $balanceDAO->setCurrentBalance($balance);
-            $balanceDAO->setStartBalance($balance);
+            $start_balance_value = $balanceDAO->getStartBalance($balance);
+            $current_balance_value = $balanceDAO->getCurrentBalance($balance);
+
+            if ($start_balance_value == $current_balance_value) {
+                $balance->setCurrent($value);
+                $balanceDAO->setCurrentBalance($balance);
+                $balanceDAO->setStartBalance($balance);
+            } else {
+                $diff = $value - $start_balance_value;
+                $balance->setCurrent($current_balance_value + $diff);
+                $balanceDAO->setCurrentBalance($balance);
+                $balanceDAO->setStartBalance($balance);
+            };
+
+            \http_response_code(200);
+            echo 'Saldo inicial atualizado.';
+            exit;
         } else {
-            $diff = $value - $start_balance_value;
-            $balance->setCurrent($current_balance_value + $diff);
-            $balanceDAO->setCurrentBalance($balance);
+            \http_response_code(500);
+            echo 'Usuário Inexistente. Verifique o número de ID';
+            exit;
         };
 
     } else {

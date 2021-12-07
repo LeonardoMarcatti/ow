@@ -63,8 +63,8 @@
             $select->execute();
             if ($select->rowCount() > 0) {
                 $result = $select->fetch(\PDO::FETCH_ASSOC)['current_balance'];
-                if ($result) {
-                    return true;
+                if ($result != '0.00') {
+                    return true;  
                 };
             };            
             return false;            

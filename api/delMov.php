@@ -20,6 +20,19 @@
         $dao = new MovimentDAO($conection);
 
         $mov->setID($id);
-        $dao->delMov($mov);
+        if ($dao->checkMov($mov)) {
+            $dao->delMov($mov);
+            \http_response_code(200);
+            echo 'Movimentação removida com sucesso.';
+            exit;
+        } else {
+            \http_response_code(404);
+            echo 'Movimentação inexistente. Verifique o ID correspondente';
+            exit;
+        };
+    } else{
+        \http_response_code(404);
+        echo 'Por favor insira ID da movimentação';
+        exit;
     };
 ?>

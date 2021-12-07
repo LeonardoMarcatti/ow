@@ -25,37 +25,43 @@
         
         $db = new Connection();
         $conection = $db->getConnection();
+        $user = new User;
+        $userDAO = new UserDAO($conection);
 
-        $balance = new Balance;
-        $balanceDAO = new BalanceDAO($conection);
-        $balance->setID_User($id);
-        $checkBalance = $balanceDAO->checkBalance($balance);
+        $user->setID($id);
+        if ($userDAO->userExits($user)) {
+            $balance = new Balance;
+            $balanceDAO = new BalanceDAO($conection);
+            $balance->setID_User($id);
+            $checkBalance = $balanceDAO->checkBalance($balance);
 
-        $mov = new Moviment;
-        $movDAO = new MovimentDAO($conection);
-        $mov->setID_User($id);
-        $checkMoviment = $movDAO->checkMov($mov);
+            $mov = new Moviment;
+            $movDAO = new MovimentDAO($conection);
+            $mov->setID_User($id);
+            $checkMoviment = $movDAO->checkMov($mov);
 
-        if ($checkBalance && $checkMoviment) {
-            \http_response_code(500);
-            echo 'Não é possível deletar usuário pois o mesmo possui saldo ou movimentação.';
-            exit;
+            if ($checkBalance || $checkMoviment) {
+                \http_response_code(500);
+                echo 'Não é possível deletar usuário pois o mesmo possui saldo ou movimentação.';
+                exit;
+            } else {
+                $email = new Email;
+                $emailDAO = new EmailDAO($conection);
+
+                $email->setID_User($id);    
+                $emailDAO->deleteEmail($email);
+                $balanceDAO->delBalance($balance);
+
+                $userDAO->deleteUser($user);
+                \http_response_code(200);
+                echo 'Usuário removido com sucesso.';
+                exit;
+            };
         } else {
-            $user = new User;
-            $userDAO = new UserDAO($conection);
-            $email = new Email;
-            $emailDAO = new EmailDAO($conection);
-
-            $email->setID_User($id);    
-            $emailDAO->deleteEmail($email);
-            $balanceDAO->delBalance($balance);
-
-            $user->setID($id);
-            $userDAO->deleteUser($user);
-            \http_response_code(200);
-            echo 'Usuário removido com sucesso.';
+            \http_response_code(500);
+            echo 'Usuário Inexistente. Verifique o número de ID';
             exit;
-        }
+        };
     } else {
         \http_response_code(500);
         echo 'ID não enviado.';
