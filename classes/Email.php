@@ -44,7 +44,7 @@
         }
     }
 
-    class EmailDAO implements DAOemail
+    final class EmailDAO implements DAOemail
     {
         private $pdo;
 
